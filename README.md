@@ -1,0 +1,2 @@
+# INTELLIGENT-STREET-LIGHT-NETWORK-WITH-PREDICTIVE-MAINTENANCE-AND-PUBLIC-COMPLAINT-HUB-
+This project proposes a smart streetlight system using IoT and ML. Sensors detect faults like bulb failure or overheating, with data sent to ThingSpeak via ESP8266. A Decision Tree model predicts issues, while a website allows public complaints and admin monitoring, enabling efficient and responsive maintenance.
