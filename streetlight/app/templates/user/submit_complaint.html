@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Submit New Complaint</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('user.submit_complaint') }}">
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" 
+                               placeholder="Enter the street address or location description" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pole_number" class="form-label">Pole Number (if available)</label>
+                        <input type="text" class="form-control" id="pole_number" name="pole_number" 
+                               placeholder="Enter the pole number if visible">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="5" 
+                                  placeholder="Describe the issue in detail" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="issue_type" class="form-label">Issue Type</label>
+                        <select class="form-select" id="issue_type" name="issue_type" required>
+                            <option value="" selected disabled>Select issue type</option>
+                            <option value="light_out">Light Out</option>
+                            <option value="flickering">Flickering Light</option>
+                            <option value="damaged_pole">Damaged Pole</option>
+                            <option value="exposed_wiring">Exposed Wiring</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Submit Complaint</button>
+                        <a href="{{ url_for('user.dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

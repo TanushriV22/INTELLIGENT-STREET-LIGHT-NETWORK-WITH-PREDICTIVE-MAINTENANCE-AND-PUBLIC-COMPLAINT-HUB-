@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1>Complaint Details</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('user.dashboard') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-lg mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Complaint #{{ complaint.id }}</h5>
+            <span class="badge {% if complaint.status == 'pending' %}bg-warning{% elif complaint.status == 'in_progress' %}bg-info{% elif complaint.status == 'resolved' %}bg-success{% endif %} fs-6">
+                {{ complaint.status|capitalize }}
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h6 class="text-muted">Date Reported</h6>
+                    <p class="fs-5">{{ complaint.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="text-muted">Current Status</h6>
+                    <p class="fs-5">
+                        {% if complaint.status == 'pending' %}
+                            <span class="text-warning">Pending</span> - Your complaint has been received and is awaiting review.
+                        {% elif complaint.status == 'in_progress' %}
+                            <span class="text-info">In Progress</span> - Your complaint is being addressed by our team.
+                        {% elif complaint.status == 'resolved' %}
+                            <span class="text-success">Resolved</span> - Your complaint has been resolved.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="text-muted">Location</h6>
+                <p class="fs-5">{{ complaint.location }}</p>
+            </div>
+            
+            <div class="mb-4">
+                <h6 class="text-muted">Description</h6>
+                <p class="fs-5">{{ complaint.description }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <h5 class="mb-0">Complaint Status Timeline</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-clipboard-check text-success me-2"></i>
+                        <strong>Complaint Submitted</strong>
+                    </div>
+                    <span class="text-muted">{{ complaint.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                </li>
+                
+                {% if complaint.status == 'in_progress' or complaint.status == 'resolved' %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-tools text-info me-2"></i>
+                        <strong>Work In Progress</strong>
+                    </div>
+                    <span class="text-muted">Status updated by administrator</span>
+                </li>
+                {% endif %}
+                
+                {% if complaint.status == 'resolved' %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Complaint Resolved</strong>
+                    </div>
+                    <span class="text-muted">Status updated by administrator</span>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
